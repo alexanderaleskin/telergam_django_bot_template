@@ -2,8 +2,9 @@ from telegram_django_bot.td_viewset import TelegaViewSet, UserViewSet as TGUserV
 from telegram_django_bot.forms import UserForm
 from telegram_django_bot.models import BotMenuElem
 from telegram_django_bot.utils import handler_decor
-from django.conf import settings
 from telegram_django_bot.telegram_lib_redefinition import InlineKeyboardButtonDJ
+
+from django.conf import settings
 from django.utils.translation import (gettext as _, gettext_lazy)
 from telegram_django_bot.routing import telega_reverse
 from telegram_django_bot.tg_dj_bot import TG_DJ_Bot
@@ -14,19 +15,30 @@ from .models import User
 
 @handler_decor()
 def start(bot: TG_DJ_Bot, update: Update, user: User):
-    message = (
-        f'Aloha, {user.first_name or user.telegram_username or user.id}! I am bot, which is made from template 🤖 \n'
-        'The goal is to show how it works 😄'
-    )  # brackets just for beautiful multi row strings
+    message = _(
+        f'Aloha, %(name)s! I am bot, which is made from template 🤖 \n'
+        'The goal is to show how it works 😄 \n'
+        '\n'
+        '<i>In action "add command" you can use next parameters: \n'
+        'Command: aaa \n'
+        'Callbacks db: ["click"] \n'
+        'Message: some text \n'
+        'Buttons db: [[{"text": "text", "url": "google.com"}, {"text":"start", "callback_data": "start"}], [{"text": "self", "callback_data": "click"}]] \n'
+        '\n'
+        'After adding this command, you can press /aaa and see the message. Normally, BotMenuElem is created from admin panel. '
+        'Here it is just for example and test. </i>'
+    ) % {
+        'name': user.first_name or user.telegram_username or user.id
+    }
 
     buttons = [
         [InlineKeyboardButtonDJ(
             text=_('🧩 BotMenuElem'),
-            callback_data=BotMenuElemViewSet(telega_reverse('base:BotMenuElemViewSet')).gm_callback_data('show_list')
+            callback_data=BotMenuElemViewSet(telega_reverse('base:BotMenuElemViewSet')).gm_callback_data('show_list','')
+            # '' - for foreign_filter
         )],
         [InlineKeyboardButtonDJ(text=_('⚙️ Settings'), callback_data='us/se')],
     ]
-
     # here 2 examples of construct callback_data: just make utrl your self in string or
     # generate it with telega_reverse (construct utrl part to BotMenuElemViewSet) and
     # gm_callback_data (add method and args to Viewset)
@@ -38,6 +50,7 @@ class BotMenuElemViewSet(TelegaViewSet):
     viewset_name = 'BotMenuElem'
     telega_form = BotMenuElemForm
     queryset = BotMenuElem.objects.all()
+    foreign_filter_amount = 1
 
     prechoice_fields_values = {
         'is_visable': (
@@ -45,6 +58,12 @@ class BotMenuElemViewSet(TelegaViewSet):
             (False, '🚫 Disabled'),
         )
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.foreign_filters[0]:
+            queryset = queryset.filter(command__contains=self.foreign_filters[0])
+        return queryset
 
     def create(self, field=None, value=None):
 
@@ -73,9 +92,6 @@ class BotMenuElemViewSet(TelegaViewSet):
             )],
         ]
         return self.CHAT_ACTION_MESSAGE, (mess, buttons)
-
-
-
 
 
 class UserViewSet(TGUserViewSet):

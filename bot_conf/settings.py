@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     # 'rangefilter',
     'django_celery_beat',
     'django_json_widget',
-    'telegram_django_bot.apps.TelegramDjangoBotConfig',
+    'telegram_django_bot',
     'base',
 ]
 
@@ -122,7 +122,7 @@ if env.str('DB_HOST', default=''):
            'NAME': env.str('DB_NAME', default='tmp'),
            'USER': env.str('DB_USER', default='tmp'),
            'PASSWORD': env.str('DB_PASSWORD', default='1234'),
-           'HOST': env.str('DB_HOST', default='localhost'),
+           'HOST': env.str('DB_HOST'),
            'PORT': '5432',
        }
     }
@@ -168,7 +168,7 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    # ('ru', _('Russian')),
+    ('ru', _('Russian')),
     ('en', _('English'))
 ]
 

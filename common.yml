@@ -5,7 +5,7 @@ services:
     build: ./
     restart: unless-stopped
     volumes:
-      - ./:/webapp
+      - ./:/webapp  # do not use this for production
       - ../mounts/logs:/web/logs
       - ../mounts/media:/web/media
       - ../mounts/logs/uwsgi:/web/logs/uwsgi

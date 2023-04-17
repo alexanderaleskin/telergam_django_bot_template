@@ -1,6 +1,7 @@
 from telegram.ext import (
     Updater,
 )
+from telegram import Bot
 import os, django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bot_conf.settings')

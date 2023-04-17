@@ -4,5 +4,5 @@
 enable_utc = False
 natural_time = False
 port = 80
-basic_auth = ['admin:123456789']
+basic_auth = ['admin:123456']
 url_prefix = 'flower'

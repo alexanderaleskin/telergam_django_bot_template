@@ -82,7 +82,7 @@ services:
 
 
 #
-#  nginx2:
+#  nginx:
 #    build: ./configs/nginx
 #    restart: unless-stopped
 #    ports:
