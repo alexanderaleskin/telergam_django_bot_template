@@ -1,5 +1,5 @@
-from telegram_django_bot.td_viewset import TelegaViewSet, UserViewSet as TGUserViewSet
-from telegram_django_bot.forms import UserForm
+from telegram_django_bot.td_viewset import TelegaViewSet
+from telegram_django_bot.user_viewset import UserViewSet as TGUserViewSet, UserForm
 from telegram_django_bot.models import BotMenuElem
 from telegram_django_bot.utils import handler_decor
 from telegram_django_bot.telegram_lib_redefinition import InlineKeyboardButtonDJ
