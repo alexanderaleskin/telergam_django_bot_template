@@ -1,7 +1,7 @@
 # Telegram Django Bot Template
 
 This template was created to develop Telegram bots based on the library
-[Telegram Django Bot](https://github.com/alexanderaleskin/telegram_django_bot_bridge) (Django + python-telegram-bot) which allows you to use
+[Telegram Django Bot](https://github.com/alexanderaleskin/telegram_django_bot) (Django + python-telegram-bot) which allows you to use
 ViewSet and other useful Django tools in bot development.
 
 > This template is designed to use the synchronous version of Python-Telegram-Bot (13.x). You need to make some changes 
@@ -49,7 +49,7 @@ logs and auxiliary files are stored.
 The template has the following folders and items:
 
 1. `base` - the main directory with business logic of the bot. You could create other Django apps (folders);
-2. `bot_conf` - settings for launching Django and Telegram Django Bot bridge;
+2. `bot_conf` - settings for launching Django and Telegram Django Bot;
 3. `configs` - files for running docker containers;
 4. `locale` - translation for supporting localization;
 5. `run_bot.py` - this is the file that starts the bot;
@@ -59,7 +59,7 @@ The template has the following folders and items:
 ### Library tools
 
 For learning Telegram-Django-Bot tools you can look at
-[documentation](https://github.com/alexanderaleskin/telegram_django_bot_bridge/blob/master/README.rst) or
+[documentation](https://github.com/alexanderaleskin/telegram_django_bot/blob/master/README.rst) or
 see the use of tools on the example of the bot 
 [@Disk_Drive_Bot](https://t.me/Disk_Drive_Bot) and its [repository](https://github.com/alexanderaleskin/drive_bot).
 
@@ -95,6 +95,6 @@ file (specify languages in `LANGUAGES`) and use 3 commands:
  
 > Changes in the text translations files do not automatically restart the process, so you need manually restart the process (it is enough to add space in any .py file).
 
-More details in the documentation [Telegram-Django-Bot](https://github.com/alexanderaleskin/telegram_django_bot_bridge#localization) .
+More details in the documentation [Telegram-Django-Bot](https://github.com/alexanderaleskin/telegram_django_bot#localization) .
 
 
